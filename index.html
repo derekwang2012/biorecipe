@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" type="image/ico" href="" />
+		
+		<title>DataTables example</title>
+		<style type="text/css" title="currentStyle">			
+			@import "css/demo_table_jui.css";
+			@import "css/smoothness/jquery-ui-1.8.4.custom.css";
+		</style>
+		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				oTable = $('#example').dataTable({
+					"bProcessing": true,
+					"bJQueryUI": true,
+					"bServerSide": true,
+					"sPaginationType": "full_numbers",
+					"sAjaxSource": "getData.php",
+					"oLanguage": {
+						"sProcessing": "查询中...",
+						"sLengthMenu": "显示 每页_MENU_条数据",
+						"sZeroRecords": "对不起，没有匹配数据",
+						"sInfo": "此页从 _START_条到_END_条  (共有_TOTAL_条数据)",
+						"sInfoEmpty": "0条数据",
+						"sInfoFiltered": "(从_MAX_条中筛选出)",
+						"sSearch": "搜索",
+						"oPaginate": {
+							"sFirst":    "第一页",
+							"sPrevious": "上一页",
+							"sNext":     "下一页",
+							"sLast":     "最后一页"
+						}
+					}
+				});
+			} );
+		</script>
+	</head>
+	<body id="dt_example">
+		<div id="container">
+			<div class="full_width big">
+				生化食谱
+			</div>						
+			<div class="demo_jui">
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+					<thead>
+						<tr>
+							<th>地区</th>
+							<th>食品</th>
+							<th>毒物</th>
+							<th>添加剂</th>
+							<th>补充</th>
+							<th>来源</th>
+							<th>网络</th>
+							<th>日期</th>
+							<th>曝光资料</th>
+							<th>链接</th>			
+						</tr>
+					</thead>
+					<tbody>		
+					</tbody>
+				</table>
+			</div>
+			<div class="spacer"></div>
+			<div id="footer" class="clear" style="text-align:center;">
+				
+			</div>
+		</div>
+	</body>
+</html>
