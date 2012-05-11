@@ -7,7 +7,7 @@
 	/* Array of database columns which should be read and sent back to DataTables. Use a space where
 	 * you want to insert a non-database field (for example a counter or static image)
 	 */
-	$aColumns = array( 'area', 'food_name', 'toxin', 'category', 'comment', 'source1', 'source2', 'date', 'article_name', 'link' );
+	$aColumns = array( 'id', 'create_date', 'area', 'food_name', 'toxin', 'category', 'source1', 'date', 'article_name', 'link' );
 	
 	/* Indexed column (used for fast and accurate table cardinality) */
 	$sIndexColumn = "id";
@@ -38,6 +38,7 @@
 	
 	mysql_query("SET CHARACTER SET utf8", $gaSql['link']);
 	mysql_query("SET NAMES 'utf8'", $gaSql['link']);
+	
 	/* 
 	 * Paging
 	 */
@@ -46,8 +47,7 @@
 	{
 		$sLimit = "LIMIT ".mysql_real_escape_string( $_GET['iDisplayStart'] ).", ".
 			mysql_real_escape_string( $_GET['iDisplayLength'] );
-	}
-	
+	}	
 	
 	/*
 	 * Ordering
@@ -70,8 +70,7 @@
 		{
 			$sOrder = "";
 		}
-	}
-	
+	}	
 	
 	/* 
 	 * Filtering
@@ -106,8 +105,7 @@
 			}
 			$sWhere .= "`".$aColumns[$i]."` LIKE BINARY '%".mysql_real_escape_string($_GET['sSearch_'.$i])."%' ";
 		}
-	}
-	
+	}	
 	
 	/*
 	 * SQL queries
@@ -137,8 +135,7 @@
 	";
 	$rResultTotal = mysql_query( $sQuery, $gaSql['link'] ) or die(mysql_error());
 	$aResultTotal = mysql_fetch_array($rResultTotal);
-	$iTotal = $aResultTotal[0];
-	
+	$iTotal = $aResultTotal[0];	
 	
 	/*
 	 * Output
@@ -156,14 +153,18 @@
 		
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
-			
+			if ( $aColumns[$i] == "link" )
+			{
+				/* Special output formatting for 'link' column */
+				$row[] = urlencode("<a target='_blank' href='".$aRow[ $aColumns[$i] ]."'>传送门</a>");
+			}
+			else
+			{
 				/* General output */
 				$row[] = urlencode($aRow[ $aColumns[$i] ]);
-			
+			}
 		}
 		$output['aaData'][] = $row;
-	}
-	
-	echo urldecode(json_encode( $output ));
-	
+	}	
+	echo urldecode(json_encode( $output ));	
 ?>

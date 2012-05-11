@@ -4,26 +4,28 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="" />
 		
-		<title>DataTables example</title>
-		<style type="text/css" title="currentStyle">			
-			@import "css/demo_table_jui.css";
-			@import "css/smoothness/jquery-ui-1.8.4.custom.css";
+		<title>生化食谱</title>
+		<style type="text/css" title="currentStyle">
+			@import "css/table.css";
+			body{font-size:12px;}
+			.red{color:red}
+			#food_table{margin-bottom:10px;}
 		</style>
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
-				oTable = $('#example').dataTable({
-					"bProcessing": true,
-					"bJQueryUI": true,
+				oTable = $('#food_table').dataTable({
+					"bProcessing": true,					
 					"bServerSide": true,
 					"sPaginationType": "full_numbers",
 					"sAjaxSource": "getData.php",
+					"aaSorting": [[7, 'desc']],
 					"oLanguage": {
 						"sProcessing": "查询中...",
 						"sLengthMenu": "显示 每页_MENU_条数据",
 						"sZeroRecords": "对不起，没有匹配数据",
-						"sInfo": "此页从 _START_条到_END_条  (共有_TOTAL_条数据)",
+						"sInfo": "_START_-_END_  (共有_TOTAL_条数据)",
 						"sInfoEmpty": "0条数据",
 						"sInfoFiltered": "(从_MAX_条中筛选出)",
 						"sSearch": "搜索",
@@ -33,27 +35,43 @@
 							"sNext":     "下一页",
 							"sLast":     "最后一页"
 						}
-					}
+					},
+					"aoColumns" : [
+						{"sClass": "center"},
+						{"sClass": "center"},
+						{"sClass": "center"},
+						{"sClass": "center"},
+						{"sClass": "center"},						
+						{"sClass": "center"},
+						{"sClass": "center"},
+						{"sClass": "center"},
+						{"sClass": "left"},
+						{"sClass": "center", "bSortable": false, "bSearchable": false}
+					],
+					"aoColumnDefs": [ 
+                        { "bSearchable": false, "bSortable": false, "bVisible": false, "aTargets": [ 0 ] },                    
+						{ "bSearchable": false, "bVisible": false, "aTargets": [ 1 ] }
+                    ]
 				});
 			} );
 		</script>
 	</head>
-	<body id="dt_example">
+	<body>
 		<div id="container">
-			<div class="full_width big">
-				生化食谱
+			<div class="logo">
+				<img src="images/logo.png" alt="生化食谱logo" />
 			</div>						
-			<div class="demo_jui">
-				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+			<div>
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="food_table">
 					<thead>
 						<tr>
+							<th></th>
+							<th></th>
 							<th>地区</th>
-							<th>食品</th>
-							<th>毒物</th>
-							<th>添加剂</th>
-							<th>补充</th>
+							<th>食品</th>							
+							<th>毒物</th>							
+							<th>补充</th>							
 							<th>来源</th>
-							<th>网络</th>
 							<th>日期</th>
 							<th>曝光资料</th>
 							<th>链接</th>			
